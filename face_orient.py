@@ -29,10 +29,7 @@ class FaceOrient:
 
 		#rects = self.detector(gray, 1)
 		dets, scores, idx = self.detector.run(gray, 1, 0)
-		if len(dets) >1:
-			print("Multiple faces detected in image. Input correct image")
-			return 400
-		elif len(dets) <1:
+		if len(dets) <1:
 			print("No face detected")
 			return 400
 		else:
