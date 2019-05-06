@@ -133,7 +133,7 @@ class FaceOrient:
 	def orient_images(self):
 		for i in tqdm(range(len(self.images))):
 			if self.images[i] is not None:
-				image = imutils.resize(self.images[i], width=400)
+				image = imutils.resize(self.images[i], width=200, height=200)
 				gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 				self.orient_image(image, gray, i)
 
