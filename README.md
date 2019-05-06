@@ -67,18 +67,15 @@ A very basic solution is to rotate given image for all orientations and use Dlib
 imutils is a nice utility package that enhances over cv2 functions. Used rotate_bound from imutils to correctly rotate image in clockwise direction. Rotating using cv2.getMatrixRotatation2D and cv2.warpAffine crops out roatated image because the roatated matrix have different height and width as compared to original image. 
 
 Since the rotation function rotate_bound rotates in clockwise direction, orientatation for different angle is as follows:
-	- 0
-
-&nbsp;&nbsp;&nbsp;&nbsp;The given image is in correct orientation. i.e "DOWN" orientatation
-	- 90
-
-&nbsp;&nbsp;&nbsp;&nbsp;The given image has to be rotated 90 degrees in clockwise direction for detector to get maximum score . Means given image was in "RIGHT" orientatation
-	- 180
-
-&nbsp;&nbsp;&nbsp;&nbsp;Upside down oriented
-	- 270
 	
-&nbsp;&nbsp;&nbsp;&nbsp;Left side oriented
+	- 0
+	The given image is in correct orientation. i.e "DOWN" orientatation
+	- 90
+	The given image has to be rotated 90 degrees in clockwise direction for detector to get maximum score . Means given image was in "RIGHT" orientatation
+	- 180
+	Upside down oriented
+	- 270
+	Left side oriented
 
 ## Steps to run
 
