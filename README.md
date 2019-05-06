@@ -125,7 +125,7 @@ python run_face_orient.py --shape-predictor shape_predictor_68_face_landmarks.da
 ## Performace 
 Intitally the model was inferencing at 3sec/image on average. Debugged to see detector was called twice. After reducing calls to detector and roatate. It came down to 2sec/image on my laptop(i5).
 
-One thing that significantly reduces inference time is image size. When image is resized before it is fed to detector. Smaller the resized image, less time it takes to inference. 
+One thing that significantly reduces inference time is image size. When image is resized before it is fed to detector. Smaller the resized image, less time it takes to inference. But decreasing size of image have effect on accuracy of model. Model makes msitakes with low resolution image.
 
 On colab: 0.3sec/image.  
 
