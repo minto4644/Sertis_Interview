@@ -24,7 +24,7 @@ file_paths = []
 
 for file_type in types:
 	path = os.path.join(args["images_dir"], file_type)
-	print(path)
+	#print(path)
 	paths = glob.glob(path)
 	file_paths.extend(paths)
 	files.extend([cv2.imread(img) for img in paths])

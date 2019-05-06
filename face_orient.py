@@ -120,7 +120,7 @@ class FaceOrient:
 					correct_angle = angle
 
 		corrected_image = rotate_bound(image, correct_angle)
-		print(correct_angle)
+		#print(correct_angle)
 		#return corrected_image
 		self.corrected_images.append(corrected_image)
 		if correct_angle == 0:

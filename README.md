@@ -38,15 +38,19 @@ The basic problem is to detect and correct orientation of face in given image be
 I will list down the possible solution approach that I tried to ponder for this problem.
 
 1. Using existing simple face detection model to detect face bounding boxes
-	- Rotate the given image at 90, 180, 270 angles and use face detection model to get face predictions. Select for angle that gives maximun score(face detection models generally gives confidence score with predicted bounding box).
+	- Rotate the given image at 90, 180, 270 angles and use face detection model to get face predictions. 
+	- Select for angle that gives maximun score(face detection models generally gives confidence score with predicted bounding box).
 
 2. Traning orientation classification model from scratch
-	- Take a human face dataset. Rotate images at 90, 180, 270 as data augumentation step. Label for each image would be roatation angle. Train on this dataset with angle as classification label. 
+	- Take a human face dataset. 
+	- Rotate images at 90, 180, 270 as data augumentation step. 
+	- Label for each image would be roatation angle. 
+	- Train on this dataset with angle as classification label. 
 
 I went ahead with first approach. Let me explain the approach in detail.
 
 - Solution Initution
-Following the intuition from facial landmarks detection [blog](https://www.pyimagesearch.com/2017/04/03/facial-landmarks-dlib-opencv-python/) by pyimagesearch, thought of extracting leftEye , rightEye and nose coordinates. Then calculate angle bewtween midpoint of eyes and nose point. But this approach was based on first detecting faces inside images. Dlib hog detector is not rotation invariant and thus was failing on badly-oriented images to detect faces. Egg vs chicken problem. 
+	Following the intuition from facial landmarks detection [blog](https://www.pyimagesearch.com/2017/04/03/facial-landmarks-dlib-opencv-python/) by pyimagesearch, thought of extracting leftEye , rightEye and nose coordinates. Then calculate angle bewtween midpoint of eyes and nose point for understanding orientation. But, this approach was based on first detecting faces inside images. Dlib hog detector is not rotation invariant and thus was failing on badly-oriented images to detect faces. Egg vs chicken problem.
 
 Let's name 4 orientations that we need to classify.
 
@@ -72,21 +76,42 @@ Since the rotation function rotate_bound rotates in clockwise direction, orienta
 	Left side oriented
 
 ## Steps to run
--------------------------------------------------------------------
-### Clone 
+
+### Clone and cd into it
 ```bash
 git clone https://github.com/minto4644/orienTFace.git
+cd orienTFace
 ```
-### Create Conda Env
+### Create Env
 ```bash
 conda create -n orient python=2.7
+source activate orient
 ```
-
 ### Install dependencies
 Create new conda env for easy speration of projects and their dependendies
 ```bash
 pip install requirements.txt
 ```
+## Download and extract pretrained dlib hog model
+```bash
+wget https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2
+bzip2 -zk shape_predictor_68_face_landmarks.dat.bz2
+```
+## Run
+```bash
+python orient_face.py --shape-predictor shape_predictor_68_face_landmarks.dat --images-dir sample
+```
+
+## Brief about run_face_orient and face_orient code files
+- run_face_orient
+	- The orient_face takes into two arguments . One is pre-trained dlib model and other is directory inside which images are present. 
+	- It creates directory names "out" inside sample directory. All the inferenced images will be written into it.
+- face_orient
+	- Contains FaceOrient class .  Intializes with detector, predictor, and images.
+	- Returns:
+		- Images rotated to 'D' orientatation
+		- Original orientatations of images
+
 
 
 
