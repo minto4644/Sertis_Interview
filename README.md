@@ -50,7 +50,7 @@ I will list down the possible solution approach that I tried to ponder for this 
 I went ahead with first approach. Let me explain the approach in detail.
 
 - Solution Initution
-Following the intuition from facial landmarks detection [blog](https://www.pyimagesearch.com/2017/04/03/facial-landmarks-dlib-opencv-python/) by pyimagesearch, thought of extracting leftEye , rightEye and nose coordinates. Then calculate angle bewtween midpoint of eyes and nose point for understanding orientation. But, this approach was based on first detecting faces inside images. Dlib hog detector is not rotation invariant and thus was failing on badly-oriented images to detect faces. Egg vs chicken problem.
+&nbsp;&nbsp;&nbsp;&nbsp;Following the intuition from facial landmarks detection [blog](https://www.pyimagesearch.com/2017/04/03/facial-landmarks-dlib-opencv-python/) by pyimagesearch, thought of extracting leftEye , rightEye and nose coordinates. Then calculate angle bewtween midpoint of eyes and nose point for understanding orientation. But, this approach was based on first detecting faces inside images. Dlib hog detector is not rotation invariant and thus was failing on badly-oriented images to detect faces. Egg vs chicken problem.
 
 Let's name 4 orientations that we need to classify.
 
@@ -67,13 +67,13 @@ imutils is a nice utility package that enhances over cv2 functions. Used rotate_
 
 Since the rotation function rotate_bound rotates in clockwise direction, orientatation for different angle is as follows:
 	- 0
-		The given image is in correct orientation. i.e "DOWN" orientatation
+&nbsp;&nbsp;&nbsp;&nbsp;The given image is in correct orientation. i.e "DOWN" orientatation
 	- 90
-		The given image has to be rotated 90 degrees in clockwise direction for detector to get maximum score . Means given image was in "RIGHT" orientatation
+&nbsp;&nbsp;&nbsp;&nbsp;The given image has to be rotated 90 degrees in clockwise direction for detector to get maximum score . Means given image was in "RIGHT" orientatation
 	- 180
-		Upside down oriented
+&nbsp;&nbsp;&nbsp;&nbsp;Upside down oriented
 	- 270
-		Left side oriented
+&nbsp;&nbsp;&nbsp;&nbsp;Left side oriented
 
 ## Steps to run
 
