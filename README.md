@@ -137,6 +137,5 @@ Note: The ```pip install requirements.txt``` takes around 5-10 minutes to instal
 
 
 ## Further Improvements
-- Exploring solution approach 2 . I didn't try to train from scratch for orientation classification model. [RotNet](https://github.com/d4nst/RotNet) could be used to train the model from scratch.
+- Exploring solution approach 2 . I didn't try to train from scratch for orientation classification model due to less time. [RotNet](https://github.com/d4nst/RotNet) could be used to train the model from scratch.
 - Compiling dlib with GPU significantly decreases inference time
-- 
