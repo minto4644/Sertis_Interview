@@ -47,7 +47,9 @@ I will list down the possible solution approach that I tried to ponder for this 
 	- Label for each image would be roatation angle. 
 	- Train on this dataset with angle as classification label. 
 
-I went ahead with first approach. Let me explain the approach in detail.
+I went ahead with first approach and did not do optional steps to convert into API and deploy on cloud.
+
+Let me explain the approach in detail.
 
 - Solution Initution
 
@@ -102,7 +104,10 @@ bzip2 -zk shape_predictor_68_face_landmarks.dat.bz2
 ## Run
 ```bash
 python run_face_orient.py --shape-predictor shape_predictor_68_face_landmarks.dat --images-dir sample
+# prints out orientation of images
+# Also prints out time taken to inference on the given images
 ```
+
 
 ## Brief about code files
 - run_face_orient
@@ -110,11 +115,28 @@ python run_face_orient.py --shape-predictor shape_predictor_68_face_landmarks.da
 	- Reads images inside directory
 	- It creates directory names "out" inside sample directory. All the inferenced images will be written into it.
 - face_orient
-	- Contains FaceOrient class .  Intializes with detector, predictor, and images.
+	- Contains FaceOrient class .  
+	- Intializes with detector, predictor, and images.
+	- orient_images orients the images using orient_image function for each image
 	- Returns:
 		- Corrected Images i.e rotated to 'D' orientatation
 		- Original orientatations of given images
 
+## Performace 
+Intitally the model was inferencing at 3sec/image on average. Debugged to see detector was called twice. After reducing calls to detector and roatate. It came down to 2sec/image on my laptop(i5).
+
+One thing that significantly reduces inference time is image size. When image is resized before it is fed to detector. Smaller the resized image, less time it takes to inference. 
+
+On colab: 0.3sec/image.  
 
 
+## Colab
+Have written a basic [jupyter noteboook on colab](https://colab.research.google.com/drive/1RPQgNF0PC98LSDsszlUheYxl8lknZeno) for steps to run
 
+Note: The ```pip install requirements.txt``` takes around 5-10 minutes to install all required packges. Dlib takes time.
+
+
+## Further Improvements
+- Exploring solution approach 2 . I didn't try to train from scratch for orientation classification model. [RotNet](https://github.com/d4nst/RotNet) could be used to train the model from scratch.
+- Compiling dlib with GPU significantly decreases inference time
+- 
