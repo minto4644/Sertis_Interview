@@ -50,7 +50,7 @@ I will list down the possible solution approach that I tried to ponder for this 
 I went ahead with first approach. Let me explain the approach in detail.
 
 - Solution Initution
-	Following the intuition from facial landmarks detection [blog](https://www.pyimagesearch.com/2017/04/03/facial-landmarks-dlib-opencv-python/) by pyimagesearch, thought of extracting leftEye , rightEye and nose coordinates. Then calculate angle bewtween midpoint of eyes and nose point for understanding orientation. But, this approach was based on first detecting faces inside images. Dlib hog detector is not rotation invariant and thus was failing on badly-oriented images to detect faces. Egg vs chicken problem.
+Following the intuition from facial landmarks detection [blog](https://www.pyimagesearch.com/2017/04/03/facial-landmarks-dlib-opencv-python/) by pyimagesearch, thought of extracting leftEye , rightEye and nose coordinates. Then calculate angle bewtween midpoint of eyes and nose point for understanding orientation. But, this approach was based on first detecting faces inside images. Dlib hog detector is not rotation invariant and thus was failing on badly-oriented images to detect faces. Egg vs chicken problem.
 
 Let's name 4 orientations that we need to classify.
 
@@ -67,13 +67,13 @@ imutils is a nice utility package that enhances over cv2 functions. Used rotate_
 
 Since the rotation function rotate_bound rotates in clockwise direction, orientatation for different angle is as follows:
 	- 0
-	The given image is in correct orientation. i.e "DOWN" orientatation
+		The given image is in correct orientation. i.e "DOWN" orientatation
 	- 90
-	The given image has to be rotated 90 degrees in clockwise direction for detector to get maximum score . Means given image was in "RIGHT" orientatation
+		The given image has to be rotated 90 degrees in clockwise direction for detector to get maximum score . Means given image was in "RIGHT" orientatation
 	- 180
-	Upside down oriented
+		Upside down oriented
 	- 270
-	Left side oriented
+		Left side oriented
 
 ## Steps to run
 
@@ -99,18 +99,19 @@ bzip2 -zk shape_predictor_68_face_landmarks.dat.bz2
 ```
 ## Run
 ```bash
-python orient_face.py --shape-predictor shape_predictor_68_face_landmarks.dat --images-dir sample
+python run_face_orient.py --shape-predictor shape_predictor_68_face_landmarks.dat --images-dir sample
 ```
 
-## Brief about run_face_orient and face_orient code files
+## Brief about code files
 - run_face_orient
 	- The orient_face takes into two arguments . One is pre-trained dlib model and other is directory inside which images are present. 
+	- Reads images inside directory
 	- It creates directory names "out" inside sample directory. All the inferenced images will be written into it.
 - face_orient
 	- Contains FaceOrient class .  Intializes with detector, predictor, and images.
 	- Returns:
-		- Images rotated to 'D' orientatation
-		- Original orientatations of images
+		- Corrected Images i.e rotated to 'D' orientatation
+		- Original orientatations of given images
 
 
 
