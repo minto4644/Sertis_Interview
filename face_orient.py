@@ -14,6 +14,9 @@ import dlib
 
 class FaceOrient:
 	def __init__(self, images, shape_predictor):
+		# initialize dlib's face detector (HOG-based) and then create
+		# the facial landmark predictor using pretrained model
+		# 
 		self.detector = dlib.get_frontal_face_detector()
 		self.predictor = dlib.shape_predictor(shape_predictor)
 		self.images = images
