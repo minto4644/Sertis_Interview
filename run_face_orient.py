@@ -37,7 +37,7 @@ end = time.time()
 for path,orient in zip(file_paths, orientations):
 	print(path, orient)
 print("Time taken to orient {} images is : {}".format(len(files), end-start))
-out_dir = os.path.join(args["images_dir"],"test_out")
+out_dir = os.path.join(args["images_dir"],"out")
 if not os.path.exists(out_dir):
 	os.makedirs(out_dir)
 
