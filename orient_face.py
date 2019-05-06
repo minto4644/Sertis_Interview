@@ -21,11 +21,15 @@ args = vars(ap.parse_args())
 #predictor = dlib.shape_predictor(args["shape_predictor"])
 types = ("*.jpg", "*.jpeg", "*.png", "*.JPG")
 files = []
+file_paths = []
+print("OK")
 for file_type in types:
 	path = os.path.join(args["images_dir"], file_type)
 	print(path)
-	files.extend([cv2.imread(img) for img in glob.glob(path)])
-
+	paths = glob.glob(path)
+	file_paths.extend(paths)
+	files.extend([cv2.imread(img) for img in paths])
+print("OK")
 #print(files)
 #image = cv2.imread(args["image"])
 #image = imutils.resize(image, width=500)
@@ -33,8 +37,10 @@ for file_type in types:
 
 fo = FaceOrient(files, args["shape_predictor"])
 start = time.time()
-oriented_images = fo.orient_images()
+oriented_images, orientations = fo.orient_images()
 end = time.time()
+for path,orient in zip(file_paths, orientations):
+	print(path, orient)
 print("Time taken to orient {} images is : {}".format(len(files), end-start))
 out_dir = os.path.join(args["images_dir"],"test_out")
 if not os.path.exists(out_dir):

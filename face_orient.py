@@ -1,8 +1,7 @@
 from helpers import FACIAL_LANDMARKS_IDXS
 from helpers import shape_to_np
 import numpy as np
-import cv2
-import dlib
+
 from imutils import face_utils
 from imutils import rotate_bound
 import imutils
@@ -10,13 +9,16 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import time
 
+import cv2
+import dlib
+
 class FaceOrient:
 	def __init__(self, images, shape_predictor):
 		self.detector = dlib.get_frontal_face_detector()
 		self.predictor = dlib.shape_predictor(shape_predictor)
 		self.images = images
 		self.corrected_images = []
-		self.scores = []
+		self.angles = []
 
 
 	def inferOrient_68(self, gray, rot_angle, counter):
@@ -115,13 +117,24 @@ class FaceOrient:
 					correct_angle = angle
 
 		corrected_image = rotate_bound(image, correct_angle)
+		print(correct_angle)
 		#return corrected_image
-		return corrected_image
+		self.corrected_images.append(corrected_image)
+		if correct_angle == 0:
+			self.angles.append("D")
+		elif correct_angle == 90:
+			self.angles.append('R')
+		elif correct_angle == 180:
+			self.angles.append('U')
+		else:
+			self.angles.append('L')
+
 
 	def orient_images(self):
 		for i in tqdm(range(len(self.images))):
 			if self.images[i] is not None:
-				image = imutils.resize(self.images[i], width=500)
+				image = imutils.resize(self.images[i], width=200)
 				gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-				self.corrected_images.append(self.orient_image(image, gray, i))
-		return self.corrected_images
+				self.orient_image(image, gray, i)
+
+		return self.corrected_images, self.angles
